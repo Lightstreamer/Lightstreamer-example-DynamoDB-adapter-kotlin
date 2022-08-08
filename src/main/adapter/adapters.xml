@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<adapters_conf id="DEMO">
+<adapters_conf id="DYNAMODBDEMO">
 
     <metadata_provider>
         <adapter_class>server.DemoMetadataProvider</adapter_class>
@@ -9,7 +9,7 @@
         <adapter_class>server.DemoDepartureProvider</adapter_class>
     </data_provider>
 
-    <data_provider name="DATA">
+    <data_provider name="CURRENTTIME">
         <adapter_class>server.DemoDataProvider</adapter_class>
     </data_provider>
 </adapters_conf>

@@ -10,7 +10,6 @@ import software.amazon.awssdk.services.dynamodb.model.ShardIteratorType
 import software.amazon.awssdk.services.dynamodb.model.StreamRecord
 import software.amazon.awssdk.services.dynamodb.model.StreamStatus
 import java.time.Instant
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
@@ -114,16 +113,14 @@ private fun shardUpdateFlow(
                 .shardIteratorType(ShardIteratorType.TRIM_HORIZON)
         }.await().shardIterator()
 
-        var delay = Duration.ZERO // adaptive delay
         var updateJob: Job? = null
         var streamInSync = false
         while (currentShardIterator != null) {
             val getRecordsResponse =
                 dynamoDbStreamClient.getRecords { it.shardIterator(currentShardIterator) }.await()
             val records = getRecordsResponse.records()
-            if (records.isEmpty()) {
-                delay = (delay + 1.milliseconds).coerceIn(1.milliseconds, 1.seconds)
-            } else {
+            println("getRecords: received ${records.size} records")
+            if (records.isNotEmpty()) {
                 streamInSync =
                     records.maxOf { it.dynamodb().approximateCreationDateTime() } >= Instant.now().minusSeconds(3)
 
@@ -158,10 +155,7 @@ private fun shardUpdateFlow(
                         }
                 }
 
-                if (streamInSync) {
-                    delay /= 2
-                } else {
-                    delay = Duration.ZERO
+                if (!streamInSync) {
                     println("Receiving old data from $tableName stream " +
                             records.maxOf { it.dynamodb().approximateCreationDateTime() }
                     )
@@ -169,7 +163,7 @@ private fun shardUpdateFlow(
             }
 
             currentShardIterator = getRecordsResponse.nextShardIterator()
-            if (streamInSync) delay(delay)
+            if (streamInSync) delay(700.milliseconds)
         }
         println("Shard $tableName $shardId finished")
     }

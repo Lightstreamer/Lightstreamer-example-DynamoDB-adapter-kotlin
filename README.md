@@ -14,9 +14,11 @@ As an example of a client using this adapter, you may refer to the [Lightstreame
 The source code of the projects is basically divided into two packages: 
 
 - demo, that implements the operations with DynamoDB both as regards reading the updates to be injected into the Lightstreamer server but also the simulator of flights information. In particular the following classes are defined:
-    - `DemoPublisher.kt`, 
-    - `DynamoData.kt`, 
-    - `Util.kt`, 
+    - `DemoPublisher.kt`, implementing the simulator generating and writing flight monitor data into two DynamoDB tables;
+    - `DynamoData.kt`, once subscribed by the clients, reading data from the DynamoDB tables and pushing as updates into the Lightstreamer server.
+
+<br>
+
 - server, that implements the ightstreamer in-process adapters based on the [Java In-Process Adapter API ](https://sdk.lightstreamer.com/ls-adapter-inprocess/7.3.1/api/index.html). in particular:
     - `DemoDepartureProvider.kt` implements the Data Adapter publishing the simulated flights information;
     - `DemoDataProvider.kt` implements the Data Adapter publishing the current time of the simulation;
@@ -38,6 +40,18 @@ Assuming Gradle is installed and available in your path you can build the demo b
 ```
 
 If the task complete successful it also created a `build/dist` folder, ready to be deployed under the `LS_HOME/adapters`.
+
+### AWS DynamoDB
+
+Both the Data Adapters and the simulator uses two DynamoDB tables that you have to create in a AWS region of your choice:
+
+    - DemoDeltaData
+    - DemoDeltaDeparture
+
+
+### AWS CLI
+
+Please note that you should also make sure that on the server running the adapters the [AWS Command Line Interface])(https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) version 2 is installed and properly configured with credentials allowing Read/Write access to the DynamoDB tables for the region you have used in the previous step.
 
 ## See Also
 
