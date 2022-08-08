@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<adapters_conf id="DEMO">
+
+    <metadata_provider>
+        <adapter_class>server.DemoMetadataProvider</adapter_class>
+    </metadata_provider>
+
+    <data_provider>
+        <adapter_class>server.DemoDepartureProvider</adapter_class>
+    </data_provider>
+
+    <data_provider name="DATA">
+        <adapter_class>server.DemoDataProvider</adapter_class>
+    </data_provider>
+</adapters_conf>

@@ -1,0 +1,16 @@
+# Configuration files
+.*
+!/.git*
+*.local
+
+# Gradle files
+local.properties
+build
+out
+
+# IDE
+*.iml
+
+# Other files
+*.jar
+*.log
