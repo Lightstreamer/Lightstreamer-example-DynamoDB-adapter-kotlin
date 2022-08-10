@@ -7,7 +7,7 @@ This project includes the resources needed to develop the Data and Metadata Adap
 The Demo simulates a basic departure flight monitor with a few rows which represent information on flights departing from a hypothetical airport.
 The data are simulated in the back-end and retrieved from an [Amazon DynamoDB](https://aws.amazon.com/en/dynamodb/) data source.
 
-As an example of a client using this adapter, you may refer to the [Lightstreamer - DynamoDB Demo - Web Client](https://github.com/Lightstreamer/Lightstreamer-example-DynamoDB-client-javascript) and view the corresponding [Live Demo]().
+As an example of a client using this adapter, you may refer to the [Lightstreamer - DynamoDB Demo - Web Client](https://github.com/Lightstreamer/Lightstreamer-example-DynamoDB-client-javascript) and view the corresponding [Live Demo](https://demos.lightstreamer.com/DynamoDBDemo/).
 
 ## Details
 
@@ -45,8 +45,8 @@ If the task complete successful it also created a `build/dist` folder, ready to 
 
 Both the Data Adapters and the simulator uses two DynamoDB tables that you have to create in a AWS region of your choice:
 
-    - DemoDeltaData
-    - DemoDeltaDeparture
+    - DemoCurrentTimeData
+    - DemoDeparturesData
 
 
 ### AWS CLI
