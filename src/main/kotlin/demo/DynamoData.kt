@@ -14,8 +14,8 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-const val DATA_TABLE_NAME = "DemoDeltaData"
-const val DEPARTURE_TABLE_NAME = "DemoDeltaDeparture"
+const val DATA_TABLE_NAME = "DemoCurrentTimeData"
+const val DEPARTURE_TABLE_NAME = "DemoDeparturesData"
 private val departureAttributesToGet =
     listOf("row", "destination", "departure", "flight", "terminal", "status", "airline")
 
@@ -119,7 +119,7 @@ private fun shardUpdateFlow(
             val getRecordsResponse =
                 dynamoDbStreamClient.getRecords { it.shardIterator(currentShardIterator) }.await()
             val records = getRecordsResponse.records()
-            println("getRecords: received ${records.size} records")
+            // println("getRecords: received ${records.size} records")
             if (records.isNotEmpty()) {
                 streamInSync =
                     records.maxOf { it.dynamodb().approximateCreationDateTime() } >= Instant.now().minusSeconds(3)
@@ -163,7 +163,11 @@ private fun shardUpdateFlow(
             }
 
             currentShardIterator = getRecordsResponse.nextShardIterator()
-            if (streamInSync) delay(700.milliseconds)
+            if (streamInSync)   {
+                delay(700.milliseconds)
+            } else {
+                delay(200.milliseconds)
+            }
         }
         println("Shard $tableName $shardId finished")
     }

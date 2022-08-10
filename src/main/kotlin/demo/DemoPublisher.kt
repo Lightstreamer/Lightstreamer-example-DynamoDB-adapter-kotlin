@@ -82,7 +82,7 @@ fun launchDemoDynamoDbPublisher(): Job = GlobalScope.launch {
                     }
                 }.stateIn(this, SharingStarted.Eagerly, startTime)
 
-                // update DemoDeltaData
+                // update CurrentTime table
                 launch {
                     timeFlow.collect { time ->
                         try {
@@ -162,9 +162,9 @@ private fun CoroutineScope.launchRowActor(
     try {
         val destination = DestinationGenerator.next()
         var departure = timeFlow.value + Duration.ofMinutes(Random.nextLong(5L..10L))
-        val flight = "DL$row${Random.nextInt(10, 999)}"
+        val flight = "LS$row${Random.nextInt(10, 999)}"
         val terminal = if (Random.nextBoolean()) "2" else "4"
-        val airline = "Delta Air Lines"
+        val airline = "Lightstreamer Air Lines"
 
         var status: FlightStatus = FlightStatus.SCHEDULED_ON_TIME
 
