@@ -4,8 +4,8 @@ This project includes the resources needed to develop the Data and Metadata Adap
 
 ![Infrastructure](infrastructure.png)<br>
 
-The Demo simulates a basic departure flight monitor with a few rows which represent information on flights departing from a hypothetical airport.
-The data are simulated in the back-end and retrieved from an [Amazon DynamoDB](https://aws.amazon.com/en/dynamodb/) data source.
+The Demo simulates a basic departures board with a few rows which represent information on flights departing from a hypothetical airport.
+The data are simulated with a random generator provided in this project and writed in two [Amazon DynamoDB](https://aws.amazon.com/en/dynamodb/) tables.
 
 As an example of a client using this adapter, you may refer to the [Lightstreamer - DynamoDB Demo - Web Client](https://github.com/Lightstreamer/Lightstreamer-example-DynamoDB-client-javascript) and view the corresponding [Live Demo](https://demos.lightstreamer.com/DynamoDBDemo/).
 
@@ -19,7 +19,7 @@ The source code of the projects is basically divided into two packages:
 
 <br>
 
-- server, that implements the ightstreamer in-process adapters based on the [Java In-Process Adapter API ](https://sdk.lightstreamer.com/ls-adapter-inprocess/7.3.1/api/index.html). in particular:
+- server, that implements the Lightstreamer in-process adapters based on the [Java In-Process Adapter API ](https://sdk.lightstreamer.com/ls-adapter-inprocess/7.3.1/api/index.html). in particular:
     - `DemoDepartureProvider.kt` implements the Data Adapter publishing the simulated flights information;
     - `DemoDataProvider.kt` implements the Data Adapter publishing the current time of the simulation;
     - `DemoMetadataProvider.kt` implements a very basic Metadata Adapter for the demo.
@@ -43,7 +43,7 @@ If the task complete successful it also created a `build/dist` folder, ready to 
 
 ### AWS DynamoDB
 
-Both the Data Adapters and the simulator uses two DynamoDB tables that you have to create in a AWS region of your choice:
+Both the Data Adapters and the simulator uses two DynamoDB tables that you have to create empty in an AWS region of your choice:
 
     - DemoCurrentTimeData
     - DemoDeparturesData
@@ -51,7 +51,7 @@ Both the Data Adapters and the simulator uses two DynamoDB tables that you have 
 
 ### AWS CLI
 
-Please note that you should also make sure that on the server running the adapters the [AWS Command Line Interface])(https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) version 2 is installed and properly configured with credentials allowing Read/Write access to the DynamoDB tables for the region you have used in the previous step.
+Please note that you should also make sure that on the server running the adapters the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) version 2 is installed and properly configured with credentials allowing Read/Write access to the DynamoDB tables for the region you have used in the previous step.
 
 ## See Also
 
