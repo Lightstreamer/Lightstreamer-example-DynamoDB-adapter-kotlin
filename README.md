@@ -36,10 +36,10 @@ You can easily build and run this application using Gradle through the `build.gr
 
 Assuming Gradle is installed and available in your path you can build the demo by running
 ```sh 
- $ gradle dist 
+ $ gradle installDist 
 ```
 
-If the task completes successfully it also created a `build/dist` folder, ready to be deployed under the `LS_HOME/adapters`.
+If the task completes successfully it also created a `build/install/DynamoDB` folder, ready to be deployed under the `LS_HOME/adapters`.
 
 ### AWS DynamoDB
 
