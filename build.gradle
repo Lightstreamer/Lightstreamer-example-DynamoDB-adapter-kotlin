@@ -14,7 +14,7 @@ buildscript {
 }
 
 wrapper {
-    gradleVersion = '7.5'
+    gradleVersion = '8.7'
 }
 
 repositories {
@@ -62,7 +62,7 @@ task fatJar(type: Jar, dependsOn: ['build']) {
     manifest {
         attributes "Implementation-Title": project.name, "Implementation-Version": project.version, 'Main-Class': 'demo.DemoPublisherKt'
     }
-    archiveName = 'ls-demo-dynamodb-fatjar.jar'
+    archiveBaseName = 'ls-demo-dynamodb-fatjar'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }) {
         exclude "codegen-resources/*.*"
